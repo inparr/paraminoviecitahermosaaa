@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Un mes contigo 🌙</title>
+    <link rel="stylesheet" href="1m.css">
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+    <source src="nobody-new.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- FONDO ANIMADO -->
+<div class="night">
+    <div class="moon"></div>
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+
+    <div class="stars"></div>
+</div>
+
+<!-- CONTENIDO -->
+<section class="section hero">
+    <h1>Un mes contigo 🥹</h1>
+    <p class="subtitle">Y cada noche contigo es mi lugar favorito</p>
+</section>
+
+<section class="section counter-section">
+    <h2>⏳ Nuestro tiempo juntos</h2>
+    <div id="counter"></div>
+</section>
+
+<section class="section message">
+    <h2>Para ti, mi amor ❤️‍🩹</h2>
+    <p>
+        Desde que llegaste a mi vida, todo se siente distinto.  
+        Las noches son más bonitas, y cada momento que pasamos juntos lo llevo en mi corazón.
+    </p>
+</section>
+
+<section class="section letter">
+    <h2>Mi carta para ti 🌙</h2>
+    <p>
+        Hoy cumplimos un mes juntos y aunque parezca poco tiempo,  
+        para mí ha sido suficiente para darme cuenta de algo muy claro
+        quiero seguir contigo celebrando cada mes.
+        <br><br>
+        Me encanta tu forma de ser, tu sonrisa, tu manera de ver la vida
+        y cómo sin darte cuenta haces que todo en mi mejoré.
+        <br><br>
+        Gracias por este primer mes, por cada momento,
+        por cada palabra y por cada emoción compartida.
+        Esto apenas comienza.
+    </p>
+</section>
+
+<section class="section final">
+    <p class="final-phrase">Te elijo hoy, mañana y siempre ✨</p>
+    <button class="love-btn">Te amo mucho 💕</button>
+</section>
+
+<section class="section">
+    <h2>Un jueguito para ti ✨</h2>
+    <p>
+        Toca las estrellitas y guarda cada una,<br>
+        como yo guardo cada momento contigo.
+    </p>
+
+    <div id="game-area"></div>
+
+    <p id="score-text">Estrellitas guardadas: <span id="score">0</span> 💖</p>
+</section>
+
+
+<script>
+    // 🔴 CAMBIA ESTA FECHA POR LA REAL (YYYY-MM-DD)
+    const startDate = new Date("2025-12-07");
+
+    function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+        document.getElementById("counter").innerHTML =
+            `${days} días, ${hours} horas, ${minutes} minutos 💖`;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 60000);
+</script>
+
+<script>
+const music = document.getElementById("bg-music");
+music.volume = 0.15; // 🔉 volumen bajito y bonito
+
+function startMusic() {
+    music.play().catch(()=>{});
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("scroll", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("scroll", startMusic);
+</script>
+
+<script>
+let score = 0;
+const gameArea = document.getElementById("game-area");
+const scoreText = document.getElementById("score");
+
+function createStar(){
+    const star = document.createElement("div");
+    star.className = "star-game";
+    star.innerHTML = "✨";
+
+    star.style.left = Math.random() * 260 + "px";
+    star.style.top = "0px";
+
+    star.onclick = () => {
+        score++;
+        scoreText.textContent = score;
+        star.remove();
+
+        if(score === 5){
+            alert("Cada estrellita eres tú iluminando mi vida 💖");
+        }
+        if(score === 10){
+            alert("Ya ves? Siempre te elijo ✨");
+        }
+    };
+
+    gameArea.appendChild(star);
+
+    setTimeout(()=> {
+        if(star.parentNode){
+            star.remove();
+        }
+    }, 4000);
+}
+
+setInterval(createStar, 1200);
+</script>
+
+
+</body>
+</html>
